@@ -23,7 +23,7 @@ using DefaultResult = StdStringResult<ResCodes, ResCodes::Ok>;
 
 //------------------------------------------------------------------------
 //Example 3. HTML codes
-enum class HTMLCodes : std::uint16_t
+enum class HTTPCodes : std::uint16_t
 {
     Ok         = 200,
     Accepted   = 202,
@@ -34,7 +34,7 @@ enum class HTMLCodes : std::uint16_t
 };
 
 //define for html codes + std::string messages (full scep)
-using HTMLResporse = ResultBase<HTMLCodes, HTMLCodes::Ok, std::string>;
+using HTTPResponse = ResultBase<HTTPCodes, HTTPCodes::Ok, std::string>;
 
 
 const int t_ok = 100;
@@ -68,8 +68,8 @@ int main(int argc, char *argv[])
     //HTMLResporse ok{ResCodes::Ok};
 
 
-    HTMLResporse resp_ok{HTMLCodes::Ok};
-    HTMLResporse notFound{HTMLCodes::NotFound, "Page Not Found!!!"};
+    HTTPResponse resp_ok{HTTPCodes::Ok};
+    HTTPResponse notFound{HTTPCodes::NotFound, "Page Not Found!!!"};
 
     //Won't compile - different codes
     //bool q = resp_ok == ok;
@@ -78,8 +78,8 @@ int main(int argc, char *argv[])
     std::cout << "HTML codes." << std::endl
               << " Ok value: " << static_cast<int>(resp_ok.code()) << std::endl
               << " NF value: " << static_cast<int>(notFound.code()) << " Message: " << notFound.descr() << std::endl
-              << " NotFound is OK? " << (notFound == HTMLCodes::Ok ? "Yes" : "No") << std::endl
-              << " Ok result is OK? " << (resp_ok == HTMLCodes::Ok ? "Yes" : "No")
+              << " NotFound is OK? " << (notFound == HTTPCodes::Ok ? "Yes" : "No") << std::endl
+              << " Ok result is OK? " << (resp_ok == HTTPCodes::Ok ? "Yes" : "No")
               << std::endl;
     //
 

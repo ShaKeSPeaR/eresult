@@ -1,7 +1,8 @@
 # EResult
 
-Contain base templated ResultBase class for operation results.
-Class have full stack for operators + operators for equality check and conversions.
+Repository contains template class ResultBase for operations results. 
+Class has full set of operators + operators for equality check and conversions.
+
 
 ## Requirement 
 
@@ -9,14 +10,14 @@ Class have full stack for operators + operators for equality check and conversio
 
 ## Usage
 
-Just copy *ResultBase.h* to your project and specialise with code and string types.
+Just copy *ResultBase.h* to your project and specialise with codes and string types.
 
 
 ## Simple example
 
 **Step 1** : Describe you codes
 
-    enum class HTMLCodes
+    enum class HTTPCodes
     {
         Ok = 200,
         NotFound = 404
@@ -24,13 +25,13 @@ Just copy *ResultBase.h* to your project and specialise with code and string typ
 
 **Step 2** : Make result type with your codes and strings type
 
-    using HTMLResporse = ResultBase<HTMLCodes, HTMLCodes::Ok, std::string>
+    using HTTPResponse = ResultBase<HTTPCodes, HTTPCodes::Ok, std::string>
    
 **Step 3** : Use it!
 
-    HTMLResporse result{HTMLCodes::NotFound, "Page Not Found!!!"};
+    HTTPResponse result{HTTPCodes::NotFound, "Page Not Found!!!"};
     std::cout << " Is all OK? " 
-              << (result == HTMLCodes::Ok ? "Yes" : "No") 
+              << (result == HTTPCodes::Ok ? "Yes" : "No") 
               << std::endl
     
 *Full examples and HowTo in main.cpp*
