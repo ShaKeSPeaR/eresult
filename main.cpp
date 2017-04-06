@@ -74,6 +74,7 @@ int main(int argc, char *argv[])
     //Won't compile - different codes
     //bool q = resp_ok == ok;
 
+    std::cout << std::endl;
     std::cout << "HTML codes." << std::endl
               << " Ok value: " << static_cast<int>(resp_ok.code()) << std::endl
               << " NF value: " << static_cast<int>(notFound.code()) << " Message: " << notFound.descr() << std::endl

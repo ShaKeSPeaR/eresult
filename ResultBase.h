@@ -11,32 +11,32 @@
 
 
 /**
- * \brief Базовый шаблонный класс для результатов операций
+ * \brief Base templated class for operation result
  *
- * \tparam CodeT тип кода ошибки
- * \tparam OkCode конкретной ошибкой для ОК кода (используется для operator bool)
- * \tparam StrT тип строки для описания результата
+ * \tparam CodeT operation code type
+ * \tparam OkCode code for 'OK' value (uses in operator bool())
+ * \tparam StrT string type for description
  *
- * Полная шаблонная реализация класса для возвращение результатов.
- * Также имеет полный набор операторов и методов для сравнения и обработки.
+ * Full template realization for operation results .
+ * Have full stack for operators + operators for equality check and conversions
  */
 template<typename CodeT, CodeT OkCode, typename StrT>
 class ResultBase
 {
 public:
 
-    using code_type   = CodeT; ///< Внутренний тип кода
-    using string_type = StrT;  ///< Внутренний тип строки
+    using code_type   = CodeT; ///< internal code type
+    using string_type = StrT;  ///< internal string type
 
-    ///Простой конструктор к кодом без текста
+    ///Simple constructor with code
     ResultBase(CodeT code): m_code(code) {}
 
     /**
-     * \brief Шаблонный универсальный конструктор с кодом и строкой
-     * \tparam CT любой тип, который может быть преобразован в code_type
-     * \tparam ST любой тип, который может быть преобразован в string_type
-     * \param[in] code универсальная ссылка с кодом результата
-     * \param[in] descr универсальная ссылка с текстом ошибки
+     * \brief Templated universal constructor with code and description
+     * \tparam CT any type with conversion to code_type
+     * \tparam ST any type with conversion to string_type
+     * \param[in] code universal reference to code
+     * \param[in] descr universal reference to description
      */
     template<typename CT, typename ST>
     ResultBase(CT&& code, ST&& descr)
@@ -50,72 +50,72 @@ public:
     ResultBase& operator=(const ResultBase&) = default;
     ResultBase& operator=(ResultBase&&)      = default;
 
-    ///оператор сравнения двух результатов на ==
+    ///compare two results by ==
     inline bool operator == (const ResultBase<CodeT, OkCode, StrT>& res) const
     {
         return m_code == res.m_code;
     }
-    ///оператор сравнения двух результатов на !=
+    ///compare two results by !=
     inline bool operator != (const ResultBase<CodeT, OkCode, StrT>& res) const
     {
         return m_code != res.m_code;
     }
-    ///оператор сравнения результата с заданным кодом на ==
+    ///compare results with code by ==
     inline bool operator == (const code_type& code) const
     {
         return m_code == code;
     }
-    ///оператор сравнения результата с заданным кодом на !=
+    ///compare results with code by !=
     inline bool operator != (const code_type& code) const
     {
         return m_code != code;
     }
-    ///оператор приведения к bool (сравнивает что есть внутри с OkCode)
+    ///conversion to bool (compare code with OkCode)
     explicit operator bool()
     {
         return m_code == OkCode;
     }
 
-    ///оператор приведения к строке
+    ///conversion to string
     explicit operator string_type()
     {
         return m_description;
     }
-    ///оператор приведения к int (преобразовывает код)
+    ///conversion to int (convert code)
     explicit operator int()
     {
         return static_cast<int>(m_code);
     }
 
-    ///запись кода в результат через потоковый оператор
+    ///replace code with stream operator
     inline ResultBase& operator << (const code_type& code)
     {
         m_code = code;
         return *this;
     }
-    ///запись строки в результат через потоковый оператор
+    ///replace description with stream operator
     inline ResultBase& operator << (const string_type& descr)
     {
         m_description = descr;
         return *this;
     }
-    ///добавление строки описания к уже существующей
+    ///update description (by adding to existing one)
     inline ResultBase& operator += (const string_type& descr)
     {
         m_description += descr;
         return *this;
     }
 
-    ///вернуть код ошибки
+    ///get result code
     inline code_type          code()  const { return m_code; }
-    ///вернуть описание ошибки
+    ///get result description
     inline const string_type& descr() const { return m_description; }
-    ///вернуть описание ошибки (подходит для std)
+    ///get result description (std style)
     inline string_type        str()   const { return m_description; }
 
 private:
-    code_type   m_code;         ///< код ошибки
-    string_type m_description;  ///< описание ошибки
+    code_type   m_code;         ///< result code
+    string_type m_description;  ///< code description
 };
 
 

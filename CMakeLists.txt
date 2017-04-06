@@ -31,6 +31,7 @@ endif()
 #source list 
 
 file(GLOB ERES_LIST
+            ./ResultBase.h
             ./main.cpp )
 
 #-----------------------------------------------------------------
