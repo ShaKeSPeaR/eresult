@@ -27,9 +27,10 @@ public:
 
     using code_type   = CodeT; ///< internal code type
     using string_type = StrT;  ///< internal string type
+    static const NoErrorCode = OkCode ///< No error code
 
     ///Simple constructor with code
-    ResultBase(CodeT code): m_code(code) {}
+    explicit ResultBase(CodeT code): m_code(code) {}
 
     /**
      * \brief Templated universal constructor with code and description
@@ -73,7 +74,7 @@ public:
     ///conversion to bool (compare code with OkCode)
     explicit operator bool()
     {
-        return m_code == OkCode;
+        return m_code == NoErrorCode;
     }
 
     ///conversion to string
