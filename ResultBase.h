@@ -71,10 +71,11 @@ public:
     {
         return m_code != code;
     }
+        
     ///conversion to bool (compare code with OkCode)
     explicit operator bool()
     {
-        return m_code == NoErrorCode;
+        return isValid();
     }
 
     ///conversion to string
@@ -107,6 +108,8 @@ public:
         return *this;
     }
 
+    ///check for valid result (by code)
+    inline bool isValid() const { return m_code == NoErrorCode; }
     ///get result code
     inline code_type          code()  const { return m_code; }
     ///get result description
